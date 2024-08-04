@@ -16,7 +16,7 @@ function SignUp() {
             return;
         }
         try {
-            const response = await axios.post('/signup', {
+            const response = await axios.post('http://52.64.204.202:8080/signup', {
                 userName,
                 pwd,
                 userId,
@@ -41,7 +41,7 @@ function SignUp() {
     const duplicateUserId = async (event) => {
         event.preventDefault();
         try{
-            const response = await axios.post('/checkid', {
+            const response = await axios.post('http://52.64.204.202:8080/checkid', {
                 userId
             });
             if(response.data === "사용가능한 아이디"){

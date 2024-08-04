@@ -12,7 +12,7 @@ function LoginHome() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('/signin', {
+            const response = await axios.post('http://52.64.204.202:8080/signin', {
                 pwd,
                 userId
             });

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.sql.DataSource;
 
 @RestController
+//@CrossOrigin(origins = "http://52.64.204.202")
+@CrossOrigin(origins = "*")
 @RequestMapping("/signup")
 public class MemberSignUp {
     private final DataSource dataSource;

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"><!--/*  layout 선언부 추가    */-->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KSSW</title>
+
+    <link href="/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}"
+          rel="stylesheet">
+    <script src="/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+
+    <!-- 각 페이지의 script가 작성될 위치 -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- 각 페이지의 css가 작성될 위치 -->
+    <th:block layout:fragment="css"></th:block>
+
+</head>
+<body>
+    <div th:replace="fragments/header::header"></div>
+
+    <div layout:fragment="content"></div>
+
+<!--    <div th:replace="fragments/footer::footer"></div>-->
+</body>
+</html>

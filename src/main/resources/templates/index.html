@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <title>Title</title>
+    <style>
+        #container {
+            margin-top : 2%;
+            margin-bottom: 5%;
+            padding: 10px 10px 10px 10px;
+
+            display: grid;
+            justify-content: center;
+            gap: 3% 5%;
+        }
+
+        .card{
+            width : 15rem;
+        }
+
+        .card-text{
+            font-size: medium;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" aria-current="page" style="margin-left: 30px" href="/"><b>경성대 소프트웨어학과</b></a>
+        <ul class="nav nav-underline">
+            <li class="nav-item">
+                <a class="nav-link" href="/board">자유게시판</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/files">자료</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                   aria-expanded="false">기타</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/etc/creditCalculator">학점계산기</a></li>
+                    <li><a class="dropdown-item" href="/etc/study">스터디</a></li>
+                    <li><a class="dropdown-item" href="/etc/usedTrade">중고거래</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">로그인</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-lg" id="container">
+    <div class="row row-cols-2 row-cols-md-4 g-2">
+        <div class="col">
+        <div class="card text-center">
+            <img src="/img/intro_coding.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">게시판</h5>
+                <p class="card-text">자유 게시판</p>
+                <a class="btn btn-primary" href="/board" role="button">바로가기</a>
+            </div>
+        </div>
+        </div>
+        <div class="col">
+        <div class="card text-center">
+            <img src="/img/intro_coding.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">게시판</h5>
+                <p class="card-text">자료 게시판</p>
+                <a class="btn btn-primary" href="/files" role="button">바로가기</a>
+            </div>
+        </div>
+        </div>
+        <div class="col">
+        <div class="card text-center">
+            <img src="/img/intro_career.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">기타 유틸</h5>
+                <p class="card-text">학점 계산기</p>
+                <a class="btn btn-primary" href="/etc/creditCalculator" role="button">바로가기</a>
+            </div>
+        </div>
+        </div>
+        <div class="col">
+        <div class="card text-center">
+            <img src="/img/intro_activity.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">기타 유틸</h5>
+                <p class="card-text">스터디</p>
+                <a class="btn btn-primary" href="/etc/study" role="button">바로가기</a>
+            </div>
+        </div>
+        </div>
+        <div class="col">
+        <div class="card text-center">
+            <img src="/img/intro_community.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">기타 유틸</h5>
+                <p class="card-text">중고 거래</p>
+                <a class="btn btn-primary" href="/etc/usedTrade" role="button">바로가기</a>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<script src="/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+</html>

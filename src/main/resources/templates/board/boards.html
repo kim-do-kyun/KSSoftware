@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<div class="container" layout:fragment="content" style="max-width: 90%">
+    <div class="py-5 text-center">
+        <h2>게시판 </h2>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    onclick="location.href='/board/post'" type="button">새 글 작성
+            </button>
+        </div>
+    </div>
+
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board : ${boards}">
+                <td><a href="board.html" th:href="@{/board/{boardId}(boardId=${board.id})}" th:text="${board.id}">게시글ID</a></td>
+                <td><a href="board.html" th:href="@{/board/{boardId}(boardId=${board.id})}" th:text="${board.title}">제목</a></td>
+                <td th:text="${board.writer}">작성자</td>
+                <td th:text="${board.createdDate}">내용</td>
+                <td th:text="${board.count}">조회수</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div> <!-- /container -->
+
+</html>

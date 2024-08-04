@@ -1,7 +1,9 @@
 package hello.kssoftware.board;
 
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Primary;
@@ -17,21 +19,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-@Component
+
+@Repository
 @Primary
+@Slf4j
 public class JdbcBoardRepository implements BoardRepository {
     private final DataSource dataSource;
+
     public JdbcBoardRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    private String now() {
-        java.util.Date utilDate = new java.util.Date();
-        long currentMilliseconds = utilDate.getTime();
-        java.sql.Date sqlDate = new java.sql.Date(currentMilliseconds);
-
-        return sqlDate.toString();
-    }
 
     public Board save(Board board) {
         String sql = "insert into board(title, writer, createdate, updatedate, content) values(?, ?, ?, ?, ?)";
@@ -46,8 +44,8 @@ public class JdbcBoardRepository implements BoardRepository {
 
             pstmt.setString(1, board.getTitle());
             pstmt.setString(2, board.getWriter());
-            pstmt.setString(3, now());
-            pstmt.setString(4, now());
+            pstmt.setString(3, String.valueOf(board.getCreatedDate()));
+            pstmt.setString(4, String.valueOf(board.getUpdatedDate()));
             pstmt.setString(5, board.getContent());
 
             pstmt.executeUpdate();
@@ -56,6 +54,7 @@ public class JdbcBoardRepository implements BoardRepository {
             if (rs.next()) {
                 board.setId(rs.getLong(1));
             } else {
+                log.error("ID 조회 실패");
                 throw new SQLException("Id 조회 실패");
             }
 
@@ -67,6 +66,94 @@ public class JdbcBoardRepository implements BoardRepository {
             close(connection, pstmt, rs);
         }
 
+    }
+
+    @Override
+    public Board findById(Long id) {
+        String sql = "select * from board where id = ?";
+        Connection connection = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            connection = getConnection();
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, String.valueOf(id));
+
+            rs = pstmt.executeQuery();
+            Board board = new Board();
+
+            if (rs.next()) {
+                board.setId(rs.getLong("id"));
+                board.setTitle(rs.getString("title"));
+                board.setWriter(rs.getString("writer"));
+                board.setCreatedDate(rs.getDate("createdate"));
+                board.setUpdatedDate(rs.getDate("updatedate"));
+                board.setContent(rs.getString("content"));
+            }
+
+            return board;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {
+            close(connection, pstmt, rs);
+        }
+    }
+
+    @Override
+    public boolean update(Long id, Board updateParam) {
+        Board board = findById(id);
+
+        String sql = "update board set title=?, content=?, updatedate=? where id=?";
+
+        Connection connection = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            connection = getConnection();
+            pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setString(1, updateParam.getTitle());
+            pstmt.setString(2, updateParam.getContent());
+            pstmt.setString(3, String.valueOf(updateParam.getUpdatedDate()));
+            pstmt.setString(4, String.valueOf(id));
+
+            int result = pstmt.executeUpdate();
+
+            return result > 0;
+
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        } finally {
+            close(connection, pstmt, rs);
+        }
+    }
+
+    @Override
+    public Board delete(Long id) {
+        Board board = findById(id);
+
+        String sql = "delete from board where id = ?";
+
+        Connection connection = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            connection = getConnection();
+            pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setString(1, String.valueOf(id));
+
+            pstmt.executeUpdate();
+            return board;
+
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        } finally {
+            close(connection, pstmt, rs);
+        }
     }
 
     private void close(Connection connection, PreparedStatement pstmt, ResultSet rs) {
@@ -126,6 +213,7 @@ public class JdbcBoardRepository implements BoardRepository {
 
             return boards;
         } catch (Exception e) {
+            log.error("ID 조회 실패");
             throw new IllegalStateException(e);
         } finally {
             close(connection, pstmt, rs);

@@ -1,0 +1,35 @@
+<!--resources/templates/fragments/header.html-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="header">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" style="margin-left: 30px" href="/"><b>경성대 소프트웨어학과</b></a>
+            <ul class="nav nav-underline">
+                <li class="nav-item">
+                    <a class="nav-link" href="/board">자유게시판</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/files">자료</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">기타</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/etc/creditCalculator">학점계산기</a></li>
+                        <li><a class="dropdown-item" href="/etc/study">스터디</a></li>
+                        <li><a class="dropdown-item" href="/etc/usedTrade">중고거래</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">로그인</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Navigation -->
+
+</div>
+</html>

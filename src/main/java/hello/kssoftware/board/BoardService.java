@@ -1,20 +1,13 @@
 package hello.kssoftware.board;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class BoardService {
-    @Autowired private BoardRepository boardRepository;
-    public List<Board> getAllBoard() {
-        return boardRepository.findAll();
-    }
-
-    public Board createBoard(Board board) {
-        return boardRepository.save(board);
-    }
+public interface BoardService {
+    List<Board> getAllBoards();
+    Board createBoard(Board board);
+    boolean updateBoard(Long boardId, Board updateParam);
+    Board deleteBoard(Long boardId);
+    Board findById(Long boardId);
+    List<Board> findByTitle(String title);
+    List<Board> findByWriter(String writer);
 }
